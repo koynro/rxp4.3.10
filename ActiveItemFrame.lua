@@ -86,7 +86,7 @@ local function UpdateCooldowns()
             if btn.spell then
                 start,duration = GetSpellCooldown(id)
             else
-                start,duration = GetItemCooldown(id)
+                start,duration = C_Container.GetItemCooldown(id)
             end
             --local remaining, cd
             if start then
