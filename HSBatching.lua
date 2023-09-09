@@ -26,8 +26,8 @@ local function StartHSTimer()
     end
 end
 
-hooksecurefunc("C_Container.usecontaineritem", function(...)
-    if C_Container.getcontaineritemid(...) == 6948 then StartHSTimer() end
+hooksecurefunc("UseContainerItem", function(...)
+    if GetContainerItemID(...) == 6948 then StartHSTimer() end
 end)
 
 hooksecurefunc("UseAction", function(...)
