@@ -42,8 +42,8 @@ local function GetActiveItemList(ref)
     end
 
     for bag = _G.BACKPACK_CONTAINER, _G.NUM_BAG_FRAMES do
-        for slot = 1, GetContainerNumSlots(bag) do
-            local id = GetContainerItemID(bag, slot)
+        for slot = 1,  C_Container.GetContainerNumSlots(bag) do
+            local id = C_Container.GetContainerItemID(bag, slot)
             -- local spell = GetItemSpell(id)
             if id and ref.activeItems[id] then
                 local itemName, _, _, _, _, _, _, _, _, itemTexture, _, classID =

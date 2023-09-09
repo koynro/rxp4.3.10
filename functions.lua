@@ -2810,7 +2810,7 @@ function addon.functions.blastedLands(self)
 end
 
 function addon.PutItemInBank(bagContents)
-    local _, isBankOpened = GetContainerNumFreeSlots(_G.BANK_CONTAINER);
+    local _, isBankOpened = C_Container.GetContainerNumFreeSlots(_G.BANK_CONTAINER);
     if CursorHasItem() and isBankOpened then
         local bank = {_G.BANK_CONTAINER}
         for i = _G.NUM_BAG_SLOTS + 1, _G.NUM_BAG_SLOTS + _G.NUM_BANKBAGSLOTS do
@@ -2820,10 +2820,10 @@ function addon.PutItemInBank(bagContents)
         if not bagContents then bagContents = {} end
         for _, bag in ipairs(bank) do
             if not bagContents[bag] then bagContents[bag] = {} end
-            local slots, bagtype = GetContainerNumFreeSlots(bag)
+            local slots, bagtype = C_Container.GetContainerNumFreeSlots(bag)
             if bagtype == 0 and slots > 0 then
-                for slot = 1, GetContainerNumSlots(bag) do
-                    if not (GetContainerItemInfo(bag, slot) or
+                for slot = 1, C_Container.GetContainerNumSlots(bag) do
+                    if not (C_Container.GetContainerItemInfo(bag, slot) or
                         bagContents[bag][slot]) then
                         PickupContainerItem(bag, slot)
                         bagContents[bag][slot] = true
@@ -2842,10 +2842,10 @@ function addon.PutItemInBags(bagContents)
         if not bagContents then bagContents = {} end
         for bag = _G.BACKPACK_CONTAINER, _G.NUM_BAG_FRAMES do
             if not bagContents[bag] then bagContents[bag] = {} end
-            local slots, bagtype = GetContainerNumFreeSlots(bag)
+            local slots, bagtype = C_Container.GetContainerNumFreeSlots(bag)
             if bagtype == 0 and slots > 0 then
-                for slot = 1, GetContainerNumSlots(bag) do
-                    if not (GetContainerItemInfo(bag, slot) or
+                for slot = 1, C_Container.GetContainerNumSlots(bag) do
+                    if not (C_Container.GetContainerItemInfo(bag, slot) or
                         bagContents[bag][slot]) then
                         PickupContainerItem(bag, slot)
                         bagContents[bag][slot] = true
@@ -2863,10 +2863,10 @@ function addon.PutItemInQuiver(bagContents)
         if not bagContents then bagContents = {} end
         for bag = _G.BACKPACK_CONTAINER, _G.NUM_BAG_FRAMES do
             if not bagContents[bag] then bagContents[bag] = {} end
-            local slots, bagtype = GetContainerNumFreeSlots(bag)
+            local slots, bagtype = C_Container.GetContainerNumFreeSlots(bag)
             if (bagtype == 1 or bagtype == 2) and slots > 0 then
-                for slot = 1, GetContainerNumSlots(bag) do
-                    if not (GetContainerItemInfo(bag, slot) or
+                for slot = 1, C_Container.GetContainerNumSlots(bag) do
+                    if not (C_Container.GetContainerItemInfo(bag, slot) or
                         bagContents[bag][slot]) then
                         PickupContainerItem(bag, slot)
                         bagContents[bag][slot] = true
@@ -2882,8 +2882,8 @@ end
 function addon.GoThroughBags(itemList, func)
     local bagContents = {}
     for bag = _G.BACKPACK_CONTAINER, _G.NUM_BAG_FRAMES do
-        for slot = 1, GetContainerNumSlots(bag) do
-            local id = GetContainerItemID(bag, slot)
+        for slot = 1, C_Container.GetContainerNumSlots(bag) do
+            local id = C_Container.getcontaineritemid(bag, slot)
             if id then
                 local name = GetItemInfo(id)
                 for _, item in ipairs(itemList) do
@@ -2898,7 +2898,7 @@ function addon.GoThroughBags(itemList, func)
 end
 
 function addon.DepositItems(itemList)
-    local _, isBankOpened = GetContainerNumFreeSlots(_G.BANK_CONTAINER);
+    local _, isBankOpened = C_Container.GetContainerNumFreeSlots(_G.BANK_CONTAINER);
     if itemList and isBankOpened then
         if type(itemList) ~= "table" then itemList = {itemList} end
     else
@@ -2926,7 +2926,7 @@ function addon.DepositItems(itemList)
 end
 
 function addon.IsItemInBags(itemList, reverseLogic)
-    local _, isBankOpened = GetContainerNumFreeSlots(_G.BANK_CONTAINER);
+    local _, isBankOpened = C_Container.GetContainerNumFreeSlots(_G.BANK_CONTAINER);
     if itemList and isBankOpened then
         if type(itemList) ~= "table" then itemList = {itemList} end
     else
@@ -2958,8 +2958,8 @@ function addon.GoThroughBank(itemList, func)
     local bagContents = {}
 
     for _, bag in pairs(bank) do
-        for slot = 1, GetContainerNumSlots(bag) do
-            local id = GetContainerItemID(bag, slot)
+        for slot = 1, C_Container.GetContainerNumSlots(bag) do
+            local id = C_Container.getcontaineritemid(bag, slot)
             if id then
                 local name = GetItemInfo(id)
                 for _, item in ipairs(itemList) do
@@ -2974,7 +2974,7 @@ function addon.GoThroughBank(itemList, func)
 end
 
 function addon.WithdrawItems(itemList)
-    local _, isBankOpened = GetContainerNumFreeSlots(_G.BANK_CONTAINER);
+    local _, isBankOpened = C_Container.GetContainerNumFreeSlots(_G.BANK_CONTAINER);
     if itemList and isBankOpened then
         if type(itemList) ~= "table" then itemList = {itemList} end
     else
@@ -3002,7 +3002,7 @@ function addon.WithdrawItems(itemList)
 end
 
 function addon.IsItemInBank(itemList, reverseLogic)
-    local _, isBankOpened = GetContainerNumFreeSlots(_G.BANK_CONTAINER);
+    local _, isBankOpened = C_Container.GetContainerNumFreeSlots(_G.BANK_CONTAINER);
     if itemList and isBankOpened then
         if type(itemList) ~= "table" then itemList = {itemList} end
     else

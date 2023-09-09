@@ -16,7 +16,6 @@ Locale.lua
 RXPGuides.lua
 GuideWindow.lua
 SettingsPanel.lua
-HSBatching.lua
 QuestLog.lua
 ActiveItemFrame.lua
 LevelingTracker.lua
